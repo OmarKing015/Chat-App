@@ -1,30 +1,16 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Add from "../assets/addAvatar.png";
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore"; 
 import { getFirestore } from "firebase/firestore";
+import firebase from 'firebase/compat/app';
+import { db, app, storage } from "../firebase";
 const Register = () => {
-  let db;
-  const[err, setErr] = useState(false)
-  useEffect(() => {
-    const firebaseConfig = {
-      apiKey: "AIzaSyDacCMh0IFhFZmDs8uTseuLwMcXs7RZDV8",
-      authDomain: "urpr-e74ab.firebaseapp.com",
-      projectId: "urpr-e74ab",
-      storageBucket: "urpr-e74ab.appspot.com",
-      messagingSenderId: "683963509393",
-      appId: "1:683963509393:web:df5fc02c58dc08f99ead30",
-    };
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const storage = getStorage();
-    db = getFirestore(app);
-  }, []);
- 
+  const[err, setErr] = useState(false)
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -73,6 +59,7 @@ const Register = () => {
             email,
             photoURL: downloadURL,
           });
+          console.log("done")
         });
       }
     );
@@ -81,6 +68,7 @@ const Register = () => {
 
     
    }catch(err){
+    console.log(err)
     setErr(true);
    }
      
@@ -90,7 +78,7 @@ const Register = () => {
       <div className="formWrapper">
         <span className="logo">PR Chat</span>
         <span className="title">Register</span>
-        <form onSubmit={handleSubmit}>
+        <form id="sginupform" onSubmit={handleSubmit}>
           <input type="text" name="" id="" placeholder="Display name" />
           <input type="email" name="" id="" placeholder="Email" />
           <input type="password" name="" id="" placeholder="Password" />
@@ -99,8 +87,8 @@ const Register = () => {
             <img src={Add} alt="" />
             <span>Add an Avatar</span>
           </label>
-          <button>Sign Up</button>
-          {err && <span> Something went wrong </span>}
+          <button onClick={() => setErr() }>Sign Up</button>
+          {err && <span> Something went wrong </span> || !err && <span></span>}
         </form>
         <p>You do have an account? Login</p>
       </div>

@@ -4,7 +4,7 @@ import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore"; 
 import { getFirestore } from "firebase/firestore";
-import firebase from "@firebase/app";
+import firebase from "firebase/compat/app";
 import "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyDacCMh0IFhFZmDs8uTseuLwMcXs7RZDV8",
@@ -18,7 +18,7 @@ firebase.initializeApp(firebaseConfig);
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig); 
 export const storage = getStorage();
- export const db = getFirestore(app) ;
+export const db = getFirestore(app) ;
  
 
  

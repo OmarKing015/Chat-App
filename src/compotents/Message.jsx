@@ -2,6 +2,8 @@
 
 import React from "react";
 import pic from "./pic.jpg";
+import pic2 from "../assets/Omar.jpg";
+
 
 const Message = () => {
   return (
@@ -12,7 +14,7 @@ const Message = () => {
       </div>
       <div className="messageContent">
         <p>Hi</p>
-        <img src={pic} alt="" />
+        <img src={pic2} alt="" />
       </div>
     </div>
   );
