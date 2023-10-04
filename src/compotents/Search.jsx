@@ -19,7 +19,8 @@ const Search = () => {
   const [user, setUser] = useState("");
   const [err, setErr] = useState("");
   const { currentUser } = useContext(AuthContext);
-  const handelSearch = async () => {
+  const handelSearch = async (e) => {
+    e.preventDefault();
     const q = query(
       collection(db, "users"),
       where("displayName", "==", username)
@@ -36,7 +37,7 @@ const Search = () => {
   };
 
   const handelKey = (e) => {
-    e.code === "Enter" && handelSearch();
+    e.code === "Enter" && e.keyCode == 13 && handelSearch();
   };
 
   const handelSelect = async () => {
@@ -74,18 +75,23 @@ const Search = () => {
     } catch (err) {
       console.log(err);
     }
+    setUser(null);
+    setUsername("")
   };
   return (
     <div className="search">
       <div className="searchForm">
+        <form onSubmit={handelSearch}>
         <input
           type="text"
           name=""
           id=""
+         value={username}
           onKeyDown={handelKey}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="Find User"
         />
+        <button type="submit" className="mobuser">Search</button></form>
       </div>
       {user && (
         <div className="userChat" onClick={handelSelect}>

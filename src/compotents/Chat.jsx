@@ -10,6 +10,7 @@ export const Chat = () => {
   return (
     <div className="chat">
       <div className="chatInfo">
+      
         <span>Omar</span>
         <div className="chatIcons">
           <img src={Cam} alt="" />

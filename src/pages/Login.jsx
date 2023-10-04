@@ -28,7 +28,7 @@ navigate("/")
   setErr(true);
   console.log(err);
 }
-    
+    const error = err;
   };
   return (
     <div className='formContainer'>
@@ -42,8 +42,11 @@ navigate("/")
             <button>Log in</button>
             
             </form>
-            
-            <p>You don't have an account? <Link to="/register">Register</Link> </p>
+            {err && <span> Something went wrong {Error}
+              
+            </span> || !err && <span></span>}
+
+            <p>You don't have an account? <Link style={{textDecoration:"none" , color:"#5d5b8d"}} to="/register">Register</Link> </p>
             </div>
         </div>
   )
