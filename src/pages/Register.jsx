@@ -8,16 +8,18 @@ import { doc, setDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import firebase from 'firebase/compat/app';
 import { db, app, storage } from "../firebase";
+import { useNavigate } from "react-router-dom";
 const Register = () => {
-
+const navigate = useNavigate()
   const[err, setErr] = useState(false)
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const displayName = e.target[0].value;
     const email = e.target[1].value;
     const password = e.target[2].value;
-    const file = e.target[3].value;
+    const file = e.target[3].files[0];
 
     const auth = getAuth();
    try{
@@ -59,8 +61,15 @@ const Register = () => {
             email,
             photoURL: downloadURL,
           });
-          console.log("done")
+          console.log("done");
+
+
+
+
+          await setDoc(doc(db, "userChats", res.user.uid),{})
+          navigate("/");
         });
+
       }
     );
 

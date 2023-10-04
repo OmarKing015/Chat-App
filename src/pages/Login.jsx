@@ -1,15 +1,41 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/jsx-no-comment-textnodes */
-import React from "react"
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import React, { useState } from "react"
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../firebase";
+
 
 
 const Login = () => {
+  const[err, setErr] = useState(false)
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+   
+    const email = e.target[0].value;
+    const password = e.target[1].value;
+
+ 
+ const auth = getAuth();
+try{
+await 
+
+ signInWithEmailAndPassword(auth,email,password)
+navigate("/")
+}catch(err){
+  setErr(true);
+  console.log(err);
+}
+    
+  };
   return (
     <div className='formContainer'>
         <div className="formWrapper">
             <span className='logo'>Pr Chat</span>
             <span className='title'>Login</span>
-            <form >
+            <form onSubmit={handleSubmit}>
             <input type="email" name="" id="" placeholder='Email'/>
             <input type="password" name="" id=""placeholder='Password' />
              
@@ -17,7 +43,7 @@ const Login = () => {
             
             </form>
             
-            <p>You don't have an account? Register</p>
+            <p>You don't have an account? <Link to="/register">Register</Link> </p>
             </div>
         </div>
   )
