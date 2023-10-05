@@ -20,7 +20,8 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.16.0",
     "sass": "^1.67.0",
-    "sort-by": "^1.2.0"
+    "sort-by": "^1.2.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

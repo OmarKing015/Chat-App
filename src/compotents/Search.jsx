@@ -21,6 +21,7 @@ const Search = () => {
   const { currentUser } = useContext(AuthContext);
   const handelSearch = async (e) => {
     e.preventDefault();
+
     const q = query(
       collection(db, "users"),
       where("displayName", "==", username)
@@ -37,7 +38,7 @@ const Search = () => {
   };
 
   const handelKey = (e) => {
-    e.code === "Enter" && e.keyCode == 13 && handelSearch();
+    e.code === "Enter"  && handelSearch();
   };
 
   const handelSelect = async () => {
