@@ -44,7 +44,10 @@ background-size: cover;
   align-items: center;
   justify-content: center;
   text-align: center;
+  @include mobile() {
 
+        display:contents;
+         }
   .logo {
     color: #5d5b8d;
     font-weight: bold;
@@ -62,12 +65,13 @@ background-size: cover;
     padding: 20px 60px;
     border-radius: 10px;
     display: flex;
+    margin-bottom: 175px;
     margin-top: 10%;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     gap: 10px;
-
+    
     form {
       display: flex;
       flex-direction: column;
