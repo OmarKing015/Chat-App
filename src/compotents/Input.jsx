@@ -85,12 +85,15 @@ const Input = () => {
     setText("");
     setImg(null);
   }
-
+  const handelKey = (e) => {
+    e.code === "Enter"  && handleSend();
+  };
   return (
     <div className="input">
       <input
         type="text"
         placeholder="Type your message"
+        onKeyDown={handelKey}
         onChange={(e) => setText(e.target.value)}
         value={text}
       />
