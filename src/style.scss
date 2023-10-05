@@ -65,13 +65,15 @@ background-size: cover;
     padding: 20px 60px;
     border-radius: 10px;
     display: flex;
-    margin-bottom: 250px;
+    
     margin-top: 10%;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     gap: 10px;
-    
+    @include mobile(){
+      margin-bottom: 300px;
+    }
     form {
       display: flex;
       flex-direction: column;
