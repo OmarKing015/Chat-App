@@ -151,10 +151,10 @@ background-size: cover;
     }
 
     .sidebar {
+      
       z-index: 1;
       overflow-y: auto;
-      position:static;
-      // margin-right:50px;
+      position:relative;
       flex: 1;
       border-right: 1px solid #3e3c61;
       background-color: #012c4b;
@@ -162,7 +162,7 @@ background-size: cover;
         position: relative;
       }
       @include mobile() {
-        width:10px;
+        padding-right: 4rem;
       }
 
       .search {
@@ -189,7 +189,10 @@ background-size: cover;
             border: none;
             color: white;
             outline: none;
+            @include mobile() {
+              width: 11.5rem;
 
+            }
             &::placeholder {
               text-align: center;
               color: rgb(36, 131, 210);
@@ -390,6 +393,7 @@ background-size: cover;
         @include mobile() {
           height: 30px;
           margin-top: 20px;
+          width: 75%;
         }
 
         input {
