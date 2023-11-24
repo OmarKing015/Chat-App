@@ -151,8 +151,9 @@ background-size: cover;
     }
 
     .sidebar {
+      z-index: 1;
       overflow-y: auto;
-      position:relative;
+      position:static;
       // margin-right:50px;
       flex: 1;
       border-right: 1px solid #3e3c61;
@@ -341,11 +342,16 @@ background-size: cover;
             }
           }
           .messageContent {
-            max-width: 80%;
+       
+            max-width: 80rem;
             display: flex;
             flex-direction: column;
             gap: 10px;
             p {
+              padding-bottom: 10px;
+              overflow-block: auto;
+              text-overflow: ellipsis;
+                  white-space: nowrap;
               background-color: white;
               padding: 10px 20px;
               border-radius: 0px 10px 10px 10px;
@@ -361,6 +367,7 @@ background-size: cover;
             .messageContent {
               align-items: flex-end;
               p {
+                
                 background-color: #8da4f1;
                 color: whitesmoke;
                 border-radius: 10px 0px 10px 10px;
