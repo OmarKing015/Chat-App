@@ -12,11 +12,18 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import {
+  getDownloadURL,
+  ref,
+  uploadBytes,
+  uploadBytesResumable,
+} from "firebase/storage";
 import { db, storage } from "../firebase";
 import { Await } from "react-router-dom";
 
 const Input = () => {
+  const [progress, setProgress] = useState(0);
+  const [fileUrl, setFileUrl] = useState(null);
   const [text, setText] = useState("");
   const [img, setImg] = useState(null);
   const { currentUser } = useContext(AuthContext);
@@ -59,6 +66,34 @@ const Input = () => {
           });
         }
       );
+    } else if (fileUrl) {
+      const storageRef = ref(storage, `files/${fileUrl.name}`);
+      const uploadTask = uploadBytes(storageRef, fileUrl);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setProgress(progress);
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then(async (url) => {
+            setFileUrl(url);
+            await updateDoc(doc(db, "chats", data.chatId), {
+              messages: arrayUnion({
+                id: uuid(),
+                text,
+                senderId: currentUser.uid,
+                date: Timestamp.now(),
+                file: url,
+              }),
+            });
+          });
+        }
+      );
     } else {
       await updateDoc(doc(db, "chats", data.chatId), {
         messages: arrayUnion({
@@ -84,9 +119,9 @@ const Input = () => {
     });
     setText("");
     setImg(null);
-  }
+  };
   const handelKey = (e) => {
-    e.code === "Enter"  && handleSend();
+    e.code === "Enter" && handleSend();
   };
   return (
     <div className="input">
@@ -98,7 +133,7 @@ const Input = () => {
         value={text}
       />
       <div className="send">
-        <img src={Attach} alt="" />
+        {/* <img src={Attach} alt="" /> */}
         <input
           type="file"
           style={{ display: "none" }}
@@ -108,6 +143,13 @@ const Input = () => {
         />
         <label htmlFor="file">
           <img src={Img} alt="" />
+          {/* <input
+          type="file"
+          // style={{ display: "none" }}
+          name=""
+          id="file"
+          onChange={(e) => setFileUrl(e.target.files[0])}
+        /> */}
         </label>
         <button onClick={handleSend}>send</button>
       </div>

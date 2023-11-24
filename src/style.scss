@@ -151,6 +151,7 @@ background-size: cover;
     }
 
     .sidebar {
+      overflow-y: auto;
       position:relative;
       // margin-right:50px;
       flex: 1;
@@ -201,7 +202,7 @@ background-size: cover;
 
       .userChat {
       
-
+        
         padding: 10px;
         display: flex;
         align-items: center;

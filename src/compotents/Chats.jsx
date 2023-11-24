@@ -11,7 +11,12 @@ const Chats = () => {
   const { currentUser } = useContext(AuthContext);
   const { dispatch } = useContext(ChatContext);
   const [ls, setLs] = useState([]);
-
+  function limitText(text, maxLength) {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + ' ...';
+    }
+    return text;
+  }
   useEffect(() => {
     const getChats = () => {
       const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc) => {
@@ -34,7 +39,7 @@ const Chats = () => {
 
   return (
     <div className="chats">
-      {Object.entries(chats)?.sort((a,b)=>b[1].date -a[1]).map((chat) => (
+      {Object.entries(chats)?.sort((a,b)=>b[1].date - a[1].date).map((chat) => (
         <div
           className="userChat"
           key={chat[0]}
@@ -45,9 +50,9 @@ const Chats = () => {
           <div className="userChatinfo">
             <span>{chat[1].userInfo.displayName}</span>
             {chat[1].lastMessage ? (
-              <p> {chat[1].lastMessage.text}</p>
+              <p> {limitText(chat[1].lastMessage.text,10)}</p>
             ) : (
-              <p>START CHATING WITH {chat[1].userInfo.displayName}</p>
+              <p>Start chating with {chat[1].userInfo.displayName}</p>
             )}
           </div>
         </div>
